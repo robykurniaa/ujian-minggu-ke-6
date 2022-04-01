@@ -1,12 +1,12 @@
 package com.juaracoding.courseweek6.pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.juaracoding.courseweek6.drivers.DriverSingleton;
-import com.juaracoding.courseweek6.utlis.Tools;
 
 public class HomePage {
 
@@ -22,6 +22,8 @@ public class HomePage {
 		
 		public void btnHome() {
 			btnHome.click();
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("window.scrollBy(0,1000)", "");
 		}
 
 }

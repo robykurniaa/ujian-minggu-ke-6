@@ -6,12 +6,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.juaracoding.courseweek6.drivers.DriverSingleton;
-import com.juaracoding.courseweek6.utlis.Tools;
+
 
 public class LoginPage {
 
 private WebDriver driver;
-private Tools tools;
 
 	public LoginPage() {
 		this.driver = DriverSingleton.getDriver();
@@ -33,17 +32,18 @@ private Tools tools;
 	@FindBy(id = "error-page")
 	WebElement txtPageLogin;
 	
-	public void submitLogin() {
+	public void submitLogin(String username, String password) {
 		btnDismiss.click();
-
-		inputUsername.sendKeys("userexampleee");
-		inputPassword.sendKeys("@Demo_user");
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,250)", "");
+		inputUsername.sendKeys(username);
+		inputPassword.sendKeys(password);
 		btnLogin.click();
 		
 	}
 	
 	public String getTxtLogin() {
-		return txtPageLogin.getText();
+		return driver.getTitle();
 	}
 	
 }

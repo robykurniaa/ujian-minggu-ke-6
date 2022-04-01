@@ -3,7 +3,7 @@ package com.juaracoding.courseweek6.utlis;
 public enum TestCases {
 
 	T1("Testing Login Customer"),
-	T2("Testing menu My Booking");
+	T2("Testing menu Home");
 	
 	private String testName;
 	

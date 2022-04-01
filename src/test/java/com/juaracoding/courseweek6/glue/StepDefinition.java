@@ -16,7 +16,6 @@ import com.juaracoding.courseweek6.pages.LoginPage;
 import com.juaracoding.courseweek6.utlis.ConfigurationProperties;
 import com.juaracoding.courseweek6.utlis.Constants;
 import com.juaracoding.courseweek6.utlis.TestCases;
-import com.juaracoding.courseweek6.utlis.Tools;
 import com.juaracoding.courseweek6.utlis.Utils;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
@@ -39,7 +38,6 @@ public class StepDefinition {
 	private static WebDriver driver;
 	private LoginPage loginPage;
 	private HomePage homePage;
-	private Tools tools;
 	ExtentTest extentTest;
 	static ExtentReports reports = new ExtentReports("src/main/resources/TestReport.html");
 	
@@ -71,12 +69,12 @@ public class StepDefinition {
 		reports.flush();
 	}
 	
-/*
+
 	@AfterAll
 	public static void closeBrowser() {
 		driver.quit();
 	}
-	*/
+
 	
 	@Given("Customer mengakses url")
 	public void customer_mengakses_url() {
@@ -87,17 +85,13 @@ public class StepDefinition {
 	
 	@When("Customer klik login button")
 	public void customer_klik_login_button() {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("window.scrollBy(0,250)", "");
-//		loginPage.submitLogin(configurationProperties.getUsername(), configurationProperties.getPassword());
-		loginPage.submitLogin();
+
+		loginPage.submitLogin(configurationProperties.getUsername(), configurationProperties.getPassword());
 		extentTest.log(LogStatus.PASS, "Customer klik login button");
 	}
 	
 	@Then("Customer berhasil login")
 	public void customer_berhasil_login() {
-		driver.navigate().refresh();
-		tools.tunggu();
 		assertEquals(configurationProperties.getTxtPageLogin(), loginPage.getTxtLogin());
 	
 	}
@@ -106,6 +100,7 @@ public class StepDefinition {
 	public void klik_button_home() {
 		driver.navigate().back();
 		homePage.btnHome();
+
 	}
 	
 	@Then("Customer melihat Page Home")
