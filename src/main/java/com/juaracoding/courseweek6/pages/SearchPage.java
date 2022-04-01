@@ -6,13 +6,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.juaracoding.courseweek6.drivers.DriverSingleton;
-import com.juaracoding.courseweek6.utlis.Tools;
 
-public class HomePage {
+public class SearchPage {
 
 	private WebDriver driver;
 
-		public HomePage() {
+		public SearchPage() {
 			this.driver = DriverSingleton.getDriver();
 			PageFactory.initElements(driver, this);
 		}

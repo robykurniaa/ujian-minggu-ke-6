@@ -11,12 +11,11 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.juaracoding.courseweek6.config.AutomationFrameworkConfig;
 import com.juaracoding.courseweek6.drivers.DriverSingleton;
-import com.juaracoding.courseweek6.pages.HomePage;
 import com.juaracoding.courseweek6.pages.LoginPage;
+import com.juaracoding.courseweek6.pages.SearchPage;
 import com.juaracoding.courseweek6.utlis.ConfigurationProperties;
 import com.juaracoding.courseweek6.utlis.Constants;
 import com.juaracoding.courseweek6.utlis.TestCases;
-import com.juaracoding.courseweek6.utlis.Tools;
 import com.juaracoding.courseweek6.utlis.Utils;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
@@ -38,8 +37,7 @@ public class StepDefinition {
 
 	private static WebDriver driver;
 	private LoginPage loginPage;
-	private HomePage homePage;
-	private Tools tools;
+	private SearchPage searchPage;
 	ExtentTest extentTest;
 	static ExtentReports reports = new ExtentReports("src/main/resources/TestReport.html");
 	
@@ -50,7 +48,8 @@ public class StepDefinition {
 	public void initializeObjects() {
 		DriverSingleton.getInstance(configurationProperties.getBrowser());
 		loginPage = new LoginPage();
-		homePage = new HomePage();
+		searchPage = new SearchPage();
+		
 		TestCases[] tests = TestCases.values();
 		extentTest = reports.startTest(tests[Utils.testCount].getTestName());
 		Utils.testCount++;
@@ -97,18 +96,18 @@ public class StepDefinition {
 	@Then("Customer berhasil login")
 	public void customer_berhasil_login() {
 		driver.navigate().refresh();
-		tools.tunggu();
 		assertEquals(configurationProperties.getTxtPageLogin(), loginPage.getTxtLogin());
+		
 	
 	}
 	
-	@When("Customer klik buton home")
+	@When("Customer klik buton search")
 	public void klik_button_home() {
 		driver.navigate().back();
-		homePage.btnHome();
+		searchPage.btnHome();
 	}
 	
-	@Then("Customer melihat Page Home")
+	@Then("Customer melihat Page hasil pencarian")
 	public void lookHomePage() {
 //		assertEquals(configurationProperties.getTxtPageHome(), homePage.getTxtPageHome;
 	}
