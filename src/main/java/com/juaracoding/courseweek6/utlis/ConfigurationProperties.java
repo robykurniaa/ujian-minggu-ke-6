@@ -25,6 +25,20 @@ public class ConfigurationProperties {
 	
 	@Value("${txtPageSearch}")
 	private String txtPageSearch;
+	
+	@Value("${messageToChart}")
+	private String messageToChart;
+	
+	@Value("${textCheckOut}")
+	private String textCheckOut;
+
+	public String getTextCheckOut() {
+		return textCheckOut;
+	}
+
+	public String getMessageToChart() {
+		return messageToChart;
+	}
 
 	public String getTxtPageSearch() {
 		return txtPageSearch;
@@ -48,6 +62,8 @@ public class ConfigurationProperties {
 	public String getSearch() {
 		return search;
 	}
+	
+	
 	
 	
 	
