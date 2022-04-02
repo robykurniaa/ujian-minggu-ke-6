@@ -6,13 +6,15 @@ import java.io.IOException;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.juaracoding.courseweek6.config.AutomationFrameworkConfig;
 import com.juaracoding.courseweek6.drivers.DriverSingleton;
-import com.juaracoding.courseweek6.pages.HomePage;
 import com.juaracoding.courseweek6.pages.LoginPage;
+import com.juaracoding.courseweek6.pages.SelectProduct;
+import com.juaracoding.courseweek6.pages.SelectProduct;
 import com.juaracoding.courseweek6.utlis.ConfigurationProperties;
 import com.juaracoding.courseweek6.utlis.Constants;
 import com.juaracoding.courseweek6.utlis.TestCases;
@@ -29,6 +31,7 @@ import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.messages.types.Product;
 import io.cucumber.spring.CucumberContextConfiguration;
 
 @CucumberContextConfiguration
@@ -37,7 +40,8 @@ public class StepDefinition {
 
 	private static WebDriver driver;
 	private LoginPage loginPage;
-	private HomePage homePage;
+	private SelectProduct searchPage;
+	private SelectProduct productPage;
 	ExtentTest extentTest;
 	static ExtentReports reports = new ExtentReports("src/main/resources/TestReport.html");
 	
@@ -48,7 +52,9 @@ public class StepDefinition {
 	public void initializeObjects() {
 		DriverSingleton.getInstance(configurationProperties.getBrowser());
 		loginPage = new LoginPage();
-		homePage = new HomePage();
+		searchPage = new SelectProduct();
+		productPage  =new SelectProduct();
+		
 		TestCases[] tests = TestCases.values();
 		extentTest = reports.startTest(tests[Utils.testCount].getTestName());
 		Utils.testCount++;
@@ -69,12 +75,12 @@ public class StepDefinition {
 		reports.flush();
 	}
 	
-
+	/*
 	@AfterAll
 	public static void closeBrowser() {
 		driver.quit();
 	}
-
+	*/
 	
 	@Given("Customer mengakses url")
 	public void customer_mengakses_url() {
@@ -85,27 +91,31 @@ public class StepDefinition {
 	
 	@When("Customer klik login button")
 	public void customer_klik_login_button() {
-
 		loginPage.submitLogin(configurationProperties.getUsername(), configurationProperties.getPassword());
+//		loginPage.submitLogin();
 		extentTest.log(LogStatus.PASS, "Customer klik login button");
 	}
 	
 	@Then("Customer berhasil login")
 	public void customer_berhasil_login() {
+		driver.navigate().refresh();
 		assertEquals(configurationProperties.getTxtPageLogin(), loginPage.getTxtLogin());
+		
 	
 	}
 	
-	@When("Customer klik buton home")
+	@When("Customer klik buton search")
 	public void klik_button_home() {
 		driver.navigate().back();
-		homePage.btnHome();
-
+		searchPage.btnHome();
+		searchPage.searchProduct(configurationProperties.getSearch());
+		searchPage.pageProduct1();
+		
 	}
 	
-	@Then("Customer melihat Page Home")
-	public void lookHomePage() {
-//		assertEquals(configurationProperties.getTxtPageHome(), homePage.getTxtPageHome;
+	@When("Customer memilih product")
+	public void selectProduct() {
+		
 	}
 	
 }

@@ -7,7 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.juaracoding.courseweek6.drivers.DriverSingleton;
 
-
 public class LoginPage {
 
 private WebDriver driver;
@@ -29,8 +28,6 @@ private WebDriver driver;
 	@FindBy(xpath ="/html/body/p/a")
 	WebElement btnDismiss;
 	
-	@FindBy(id = "error-page")
-	WebElement txtPageLogin;
 	
 	public void submitLogin(String username, String password) {
 		btnDismiss.click();
@@ -45,6 +42,8 @@ private WebDriver driver;
 	public String getTxtLogin() {
 		return driver.getTitle();
 	}
+	
+
 	
 }
 
