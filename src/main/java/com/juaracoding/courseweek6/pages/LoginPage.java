@@ -29,11 +29,12 @@ private WebDriver driver;
 	WebElement btnDismiss;
 	
 	
-	public void submitLogin() {
+	public void submitLogin(String username, String password) {
 		btnDismiss.click();
-
-		inputUsername.sendKeys("userexampleee");
-		inputPassword.sendKeys("@Demo_user");
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,250)", "");
+		inputUsername.sendKeys(username);
+		inputPassword.sendKeys(password);
 		btnLogin.click();
 		
 	}

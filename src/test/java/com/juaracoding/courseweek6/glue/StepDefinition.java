@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import com.juaracoding.courseweek6.config.AutomationFrameworkConfig;
 import com.juaracoding.courseweek6.drivers.DriverSingleton;
 import com.juaracoding.courseweek6.pages.LoginPage;
+import com.juaracoding.courseweek6.pages.ProductPage;
 import com.juaracoding.courseweek6.pages.SearchPage;
 import com.juaracoding.courseweek6.utlis.ConfigurationProperties;
 import com.juaracoding.courseweek6.utlis.Constants;
@@ -29,6 +30,7 @@ import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.messages.types.Product;
 import io.cucumber.spring.CucumberContextConfiguration;
 
 @CucumberContextConfiguration
@@ -38,6 +40,7 @@ public class StepDefinition {
 	private static WebDriver driver;
 	private LoginPage loginPage;
 	private SearchPage searchPage;
+	private ProductPage productPage;
 	ExtentTest extentTest;
 	static ExtentReports reports = new ExtentReports("src/main/resources/TestReport.html");
 	
@@ -49,6 +52,7 @@ public class StepDefinition {
 		DriverSingleton.getInstance(configurationProperties.getBrowser());
 		loginPage = new LoginPage();
 		searchPage = new SearchPage();
+		productPage  =new ProductPage();
 		
 		TestCases[] tests = TestCases.values();
 		extentTest = reports.startTest(tests[Utils.testCount].getTestName());
@@ -70,7 +74,7 @@ public class StepDefinition {
 		reports.flush();
 	}
 	
-/*
+	/*
 	@AfterAll
 	public static void closeBrowser() {
 		driver.quit();
@@ -86,10 +90,8 @@ public class StepDefinition {
 	
 	@When("Customer klik login button")
 	public void customer_klik_login_button() {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("window.scrollBy(0,250)", "");
-//		loginPage.submitLogin(configurationProperties.getUsername(), configurationProperties.getPassword());
-		loginPage.submitLogin();
+		loginPage.submitLogin(configurationProperties.getUsername(), configurationProperties.getPassword());
+//		loginPage.submitLogin();
 		extentTest.log(LogStatus.PASS, "Customer klik login button");
 	}
 	
@@ -105,11 +107,18 @@ public class StepDefinition {
 	public void klik_button_home() {
 		driver.navigate().back();
 		searchPage.btnHome();
+		searchPage.search(configurationProperties.getSearch());
+		
 	}
 	
 	@Then("Customer melihat Page hasil pencarian")
-	public void lookHomePage() {
-//		assertEquals(configurationProperties.getTxtPageHome(), homePage.getTxtPageHome;
+	public void look_Home_Page() {
+		assertEquals(configurationProperties.getTxtPageSearch(),searchPage.getTxtSearch());
+	}
+	
+	@When("Customer klik product")
+	public void klikProduct() {
+		searchPage.scroll();
 	}
 	
 }
