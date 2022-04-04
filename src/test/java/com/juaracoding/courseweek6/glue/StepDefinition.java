@@ -112,31 +112,41 @@ public class StepDefinition {
 		driver.navigate().back();
 		searchPage.btnHome();
 		searchPage.searchProduct(configurationProperties.getSearch());
-		extentTest.log(LogStatus.PASS, "Customer klik buton search");
+//		extentTest.log(LogStatus.PASS, "Customer klik buton search");
 	}
 	
 	@When("Customer select product")
 	public void selectProduct() {
 		searchPage.pageProduct1();
-		extentTest.log(LogStatus.PASS, "Customer select product");
+//		extentTest.log(LogStatus.PASS, "Customer select product");
 	}
 	
 	@When("Customer add to cart")
 	public void addToChart() {
 		searchPage.addToChart();
-		extentTest.log(LogStatus.PASS, "Customer add to cart");
+//		extentTest.log(LogStatus.PASS, "Customer add to cart");
+	}
+	
+	@When("Customer compare product")
+	public void compareProduct(){
+	searchPage.compareProduct();
+	}
+	
+	@Then("Customer success compare product")
+	public void compareSuccess() {
+//		assertEquals(configurationProperties.getCompareText(), searchPage.getTextCompare());
 	}
 	
 	@When("Customer add data to checkout")
 	public void proceedCheckOut() {
 		searchPage.addData();
-		extentTest.log(LogStatus.PASS, "Customer add data to checkout");
+//		extentTest.log(LogStatus.PASS, "Customer add data to checkout");
 	}
 	
 	@Then("Customer success checkout")
 	public void successCheckOut() {
-		assertEquals(configurationProperties.getTextCheckOut(), searchPage.getTextCheckOut());
-		extentTest.log(LogStatus.PASS, "Customer success checkout");
+		assertEquals(configurationProperties.getTextCheckOut(), checkOutProduct.getTextCheckOut());
+//		extentTest.log(LogStatus.PASS, "Customer success checkout");
 	}
-	
+		
 }

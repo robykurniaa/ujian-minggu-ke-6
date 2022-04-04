@@ -31,6 +31,9 @@ public class ConfigurationProperties {
 	
 	@Value("${textCheckOut}")
 	private String textCheckOut;
+	
+	@Value("${compareText}")
+	private String compareText;
 
 	public String getTextCheckOut() {
 		return textCheckOut;
@@ -62,9 +65,10 @@ public class ConfigurationProperties {
 	public String getSearch() {
 		return search;
 	}
-	
-	
-	
+
+	public String getCompareText() {
+		return compareText;
+	}
 	
 	
 }
