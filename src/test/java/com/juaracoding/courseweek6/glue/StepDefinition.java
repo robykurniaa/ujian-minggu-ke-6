@@ -37,6 +37,7 @@ import io.cucumber.spring.CucumberContextConfiguration;
 
 @CucumberContextConfiguration
 @ContextConfiguration(classes = AutomationFrameworkConfig.class)
+
 public class StepDefinition {
 
 	private static WebDriver driver;
